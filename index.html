@@ -236,16 +236,7 @@ section { padding: 52px var(--pad); }
 .svc-item .arr { color: var(--accent); }
 
 #works { background: var(--bg); padding-left: 0; padding-right: 0; }
-.works-head { padding: 0 var(--pad) 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.works-head .s-title { margin-bottom: 0; }
-
-.tab-grp { display: flex; gap: 5px; flex-shrink: 0; flex-wrap: wrap; }
-.tab-btn {
-  background: none; border: 1px solid var(--border); color: var(--muted);
-  font-family: 'DM Sans', sans-serif; font-size: .7rem; font-weight: 500; letter-spacing: .09em;
-  text-transform: uppercase; padding: 10px 14px; cursor: pointer; min-height: 44px; transition: all .2s;
-}
-.tab-btn.active, .tab-btn:active { background: var(--accent); color: #0e0c0a; border-color: var(--accent); }
+.works-head { padding: 0 var(--pad) 20px; }
 
 /* Videos — lazy-loaded on tap to prevent loading many iframes at once */
 .vid-grid { display: flex; flex-direction: column; gap: 3px; }
@@ -272,7 +263,6 @@ section { padding: 52px var(--pad); }
   transition: background .2s;
   text-align: center;
 }
-.vid-play .ph-label { font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-family: 'DM Sans', sans-serif; }
 .vid-wrap:active .vid-play { background: rgba(0,0,0,.4); }
 
 #contact { background: var(--surf); }
@@ -449,32 +439,16 @@ footer p { font-size: .68rem; color: var(--muted); letter-spacing: .04em; }
       <div class="s-label">Portfolio</div>
       <h2 class="s-title">Selected<br>Works</h2>
     </div>
-    <div class="tab-grp">
-      <button class="tab-btn active" onclick="showTab('videos',this)">Video</button>
-      <button class="tab-btn"        onclick="showTab('youtube',this)">YouTube</button>
-    </div>
   </div>
 
-  <!-- VIDEOS: replace each data-src with your own Google Drive / hosted preview link.
-       Each card only loads its iframe when tapped, so an empty grid stays fast. -->
+  <!-- VIDEOS: tap a card to load its preview. -->
   <div id="videos">
     <div class="vid-grid">
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-    </div>
-  </div>
-
-  <!-- YOUTUBE: replace with youtube.com/watch?v=... or youtu.be/... links, or a Drive preview link. -->
-  <div id="youtube" style="display:none;">
-    <div class="vid-grid">
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
-      <div class="vid-wrap" data-src=""><div class="vid-play">▶<span class="ph-label">Add video link</span></div></div>
+      <div class="vid-wrap" data-src="https://drive.google.com/file/d/14I_7rduDMGX-Iugt9Xzxevj2gyqEkIyV/preview"><div class="vid-play">▶</div></div>
+      <div class="vid-wrap" data-src="https://drive.google.com/file/d/1KKkQ0t5lX_8rEiEojc83u-pShYI6pPLr/preview"><div class="vid-play">▶</div></div>
+      <div class="vid-wrap" data-src="https://drive.google.com/file/d/1OMFLv-n4FofgPWpHHKBSiP-qK3nkAh17/preview"><div class="vid-play">▶</div></div>
+      <div class="vid-wrap" data-src="https://drive.google.com/file/d/1TXOiS0XIsYA4kgFAdWVuVq7M8wgGN1xR/preview"><div class="vid-play">▶</div></div>
+      <div class="vid-wrap" data-src="https://drive.google.com/file/d/1jAUYbODHQWPFjb-Fzyggg73W6GrYMkFT/preview"><div class="vid-play">▶</div></div>
     </div>
   </div>
 </section>
@@ -545,14 +519,6 @@ function updateNav(){
 }
 window.addEventListener('scroll', updateNav, {passive:true});
 updateNav();
-
-/* Two tabs: videos / youtube */
-function showTab(tab, btn){
-  document.getElementById('videos').style.display  = tab==='videos'  ? 'block' : 'none';
-  document.getElementById('youtube').style.display  = tab==='youtube' ? 'block' : 'none';
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
 
 /* Load a video's iframe only when its card is tapped, and only if a link has been set. */
 document.querySelectorAll('.vid-wrap[data-src]').forEach(card => {
